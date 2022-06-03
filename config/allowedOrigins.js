@@ -5,6 +5,7 @@ const allowedOrigins = [
     "http://localhost:8000",
     "http://localhost:3000",
     "https://dev-karanvirsb-book-directory.herokuapp.com",
+    "https://dev-karanvirsb-book-directory.netlify.app",
 ];
 
 module.exports = allowedOrigins;
