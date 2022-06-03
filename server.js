@@ -18,7 +18,7 @@ app.use(logger);
 
 // handle options credients check - before CORS! and fetch cookies crednetials requirement
 app.use(credentials);
-app.use(express.static(__dirname + "/public/build/"));
+// app.use(express.static(__dirname + "/public/build/"));
 app.use(cors(corsOptions));
 
 //parsing form data
