@@ -1,0 +1,92 @@
+20220508	12:03:13	68ce26f1-d426-464b-8a4b-0b5250076fc0	Error: Not allowed by CORS
+20220508	14:47:06	f13ddbc7-c76a-402c-bc3f-3b7eba2fe93c	TypeError: data.books.map is not a function
+20220509	10:56:31	224fb513-0334-425f-a380-ee99642285d0	TypeError: allowedOrigins.includes is not a function
+20220509	10:57:01	7efc5f6b-d0fc-4a25-ab5f-9a0110b8e85a	TypeError: allowedOrigins.include is not a function
+20220509	10:57:25	97e6bbb6-b443-4e1e-a784-7cf55960264a	TypeError: allowedOrigins.include is not a function
+20220511	10:20:35	ef405840-2c34-417a-8e5f-fe1c452b09b1	TypeError: Cannot destructure property 'start' of 'pages[page]' as it is undefined.
+20220511	10:20:35	7635ac7d-0c74-4190-aa97-6bf98099bf48	TypeError: Cannot destructure property 'start' of 'pages[page]' as it is undefined.
+20220511	10:21:40	bd32624d-ea91-4668-bade-5a111e33f47e	TypeError: Cannot destructure property 'start' of 'pages[page]' as it is undefined.
+20220511	10:21:40	f87ee3d0-3f90-47f3-82cc-71e94797b7eb	TypeError: Cannot destructure property 'start' of 'pages[page]' as it is undefined.
+20220511	10:22:46	d80b2d56-d375-4d33-be74-e26c5c145cad	TypeError: Cannot destructure property 'start' of 'pages[page]' as it is undefined.
+20220511	10:22:46	9d43962e-daa2-4916-b8a7-dfb4af1a2d63	TypeError: Cannot destructure property 'start' of 'pages[page]' as it is undefined.
+20220512	12:15:35	d3845f63-f44d-41d2-ba37-0ceac784fa62	TypeError: Cannot destructure property 'start' of 'pages[page]' as it is undefined.
+20220512	12:15:35	c9cd317e-86d0-40b7-a611-51fdec1410fc	TypeError: Cannot destructure property 'start' of 'pages[page]' as it is undefined.
+20220512	12:16:11	401c98e2-7607-4193-9f19-4a559da2cb30	TypeError: Cannot destructure property 'start' of 'pages[page]' as it is undefined.
+20220512	12:16:11	0a038c7a-8057-44de-9f7e-df392a886c15	TypeError: Cannot destructure property 'start' of 'pages[page]' as it is undefined.
+20220512	15:07:27	ab8d9e57-066b-4bd3-a2d3-544901193236	ReferenceError: books is not defined
+20220512	15:07:27	bc61cf50-6485-49bc-a783-da2d674479d6	ReferenceError: books is not defined
+20220512	15:07:27	90ff6dc2-f439-4b52-86e4-2d94a8933bd6	ReferenceError: books is not defined
+20220512	15:07:27	28ea8b5b-714e-466b-b8ae-a284be65ea60	ReferenceError: books is not defined
+20220512	15:07:27	bc0833ff-9740-4171-a99c-7c5405bc6e03	ReferenceError: books is not defined
+20220512	15:07:27	b7e71631-5095-4bbc-b49f-f7571724541a	ReferenceError: books is not defined
+20220512	15:07:27	03e43b43-6800-46fb-8baa-053f133b11de	ReferenceError: books is not defined
+20220512	15:07:27	df35b208-4168-4182-a256-6c8912daadcc	ReferenceError: books is not defined
+20220512	15:07:27	9c7b11eb-800e-4012-aa96-3950641c6bde	ReferenceError: books is not defined
+20220512	15:07:27	7a36d95a-777b-4c31-82a5-ca6886d7989a	ReferenceError: books is not defined
+20220512	17:04:27	e42cff32-1063-477b-ada3-e21dfa7836b3	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220512	17:04:27	8e96064d-50f0-446e-8069-507a8c1e5610	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220512	17:04:34	550765a5-f72f-473e-82f2-db591ca430d7	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220512	17:04:34	31bde26f-cfd8-4a9c-afc0-3402eacb2d91	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220512	17:05:18	365a8174-7c8f-4531-82ba-a525951d2871	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220512	17:05:18	edbd126e-2609-4764-9f8d-f8c9f7165db8	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220512	17:06:58	79eb5986-6daf-41b4-a22b-29f9e4db8723	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220512	17:06:58	58fedc69-12a1-4cf8-b461-cc236aeb04d6	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220513	11:28:12	a02abe16-242a-42af-9510-ca4f661c3d3c	TypeError: Cannot read property 'id' of undefined
+20220513	11:29:36	41245449-a896-47d3-9615-2bbce44e84f7	TypeError: Cannot read property 'id' of undefined
+20220513	11:33:02	719cdf09-c313-4335-998d-22e72dabd96c	TypeError: Cannot read property 'id' of undefined
+20220513	11:34:35	5f8c6e2a-2cb4-4d2e-986e-54cf038f80d2	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220513	11:38:58	d61e7745-7316-4295-8eaa-350dcc3d1ab6	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220513	11:42:18	2125edad-c974-45f5-84e8-2d367599f152	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220513	11:42:47	a9de1beb-6697-4341-916c-8dd9d823985c	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220513	11:43:32	d93eb300-4552-4cf9-964b-f8295747bed8	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220513	11:44:10	4cdb18d0-80f4-44c8-84d8-092917fda816	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220513	11:44:56	c5a8e969-55ac-4912-af93-cb03d16bee37	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220513	11:46:41	4e89a32e-f2b7-4eeb-992b-e3b760d5afd1	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220513	11:48:03	d1525190-4743-4718-b3e7-390f0db893a8	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220513	11:56:03	22fd5668-6bd6-456e-aa57-905d28108711	ReferenceError: newBooksArr is not defined
+20220513	12:04:03	49abdb40-a8e0-4c53-a79e-113d66d80727	TypeError: Cannot destructure property 'start' of 'searchTable[search][page]' as it is undefined.
+20220513	12:04:05	ff744661-ff38-4fd7-b226-ae94c1326d35	TypeError: Cannot destructure property 'start' of 'searchTable[search][page]' as it is undefined.
+20220513	12:04:11	c5715694-1d4a-4ca4-8010-405f5ea5006a	TypeError: Cannot destructure property 'start' of 'searchTable[search][page]' as it is undefined.
+20220513	12:04:19	4d456d18-d6bc-452a-bece-e0aaf197f4c8	TypeError: Cannot destructure property 'start' of 'searchTable[search][page]' as it is undefined.
+20220513	12:04:22	22a0141d-b2d2-43af-a395-f7bd1a35efde	TypeError: Cannot destructure property 'start' of 'searchTable[search][page]' as it is undefined.
+20220513	12:04:24	d0f2f4ae-029c-4ef3-a13f-0170d6e13c5c	TypeError: Cannot destructure property 'start' of 'searchTable[search][page]' as it is undefined.
+20220513	12:04:26	895c458f-642f-4b71-875d-5660d31fe991	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220513	12:06:27	d23dc35a-7122-4c41-9c1d-6d2116c2eb19	TypeError: Cannot destructure property 'start' of 'pages.page[page]' as it is undefined.
+20220513	12:11:31	7ee00a18-3f1a-455b-8add-68acdc4b05cd	TypeError: Cannot destructure property 'start' of 'searchTable[search][page]' as it is undefined.
+20220515	11:25:35	73061268-1a1f-4f35-b466-23079a7c1bfb	TypeError: book.image is not a function
+20220515	11:25:35	8ac7e0e4-c7b5-4874-84e1-4d98d052ed36	TypeError: book.image is not a function
+20220515	11:31:31	aea4333a-9a28-4beb-8490-44b360e3f8db	TypeError: book.image is not a function
+20220515	11:31:31	8bf2fb5a-5dd2-4c62-90b5-c7d17394c32b	TypeError: book.image is not a function
+20220515	11:34:39	951fd845-6a00-460b-91b1-dc8f75e5f808	SyntaxError: Unexpected token o in JSON at position 1
+20220515	11:34:57	70e146a4-44ff-4eff-9cbc-f30aa22b2758	ReferenceError: parsedBooks is not defined
+20220515	11:41:11	b9d8e0c2-3cff-4fb1-a0c7-0465d054dea7	TypeError: data.books[i].image is not a function
+20220515	11:41:11	05ca859e-b8c8-42e8-984e-6ce02a392640	TypeError: data.books[i].image is not a function
+20220515	11:43:23	367dc089-c84a-48e0-8925-8e436b463ca9	TypeError: Cannot read property 'arguments' of undefined
+20220515	11:43:23	5934c182-51ec-497e-be55-e8236385792c	TypeError: Cannot read property 'arguments' of undefined
+20220515	11:43:38	85c718e8-94a5-4538-938c-3b7358bdb41f	TypeError: Cannot read property 'arguments' of undefined
+20220515	11:43:38	912c644c-128a-4831-9a8c-fca145398b8d	TypeError: Cannot read property 'arguments' of undefined
+20220515	13:47:16	0e241fc9-1d88-4a7b-b9fb-2409f209d64a	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:18:30	b129e5c2-fb29-4bf8-ace9-496228c61a42	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:18:30	75f0e7cd-b3b7-445c-b6bb-ef11fc0271de	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:20:43	5142e2e1-8ba8-4455-9e52-8b151d6fbda4	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:25:51	8cf963c3-51df-4e68-96ae-e24c92ee0072	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:26:43	22b48d48-d78b-4989-a6ab-bbe49b7b15ee	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:26:43	f14a4fb9-15c0-48d7-b266-efc7ec329b89	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:26:52	fecf1a1d-ecd9-497d-9d87-40ac70127c33	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:26:54	ebd24e43-0de3-44d8-88c0-ec5513c00060	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:26:54	02ab736c-afbd-406f-8ace-8c5a279f9d78	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:27:16	ac6bead3-53f8-45ff-b39b-9f1151894733	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:27:16	f3e5ef87-426d-4d78-aa15-f32cff56aa29	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:27:36	81ba8995-e581-4d55-b5f7-57c602ec51f0	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:27:36	429906dc-8a2e-477a-ac0f-bbfa5b1beb0e	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:28:47	3b16a2d4-2e16-406a-93bc-ed4ea7bec635	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:28:47	488d7c8a-3346-4558-929e-6c89c1cad982	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:28:55	0156073e-aaaa-46bc-81cc-01d0285c7feb	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:28:55	661da46a-67af-4e98-b934-8836657c962d	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220515	14:42:46	b8176f37-7b73-46f7-adb2-6cbb322b8bb8	TypeError: Cannot read property 'function' of undefined
+20220515	14:42:52	6a93d3a9-d15b-443c-a5d9-658f263c47a2	TypeError: Cannot read property 'function' of undefined
+20220515	14:44:08	12cccc9e-8f91-4560-8551-72b0b692845a	TypeError: Cannot read property 'function' of undefined
+20220515	14:45:42	0cff8cf1-4634-43c1-8c1c-32e92a116966	TypeError: Cannot read property 'function' of undefined
+20220515	15:04:48	4165c130-1f3b-44af-8a83-9bb01470394e	TypeError: newBooksArr[i].image is not a function
+20220518	15:45:23	37b19634-fc50-42a5-a24e-66fa5ebc1b03	TypeError: Cannot destructure property 'start' of 'bookPages.page[page]' as it is undefined.
+20220518	17:32:27	99335339-bc70-4f6c-ad90-cbb0b95d5e03	TypeError: Cannot destructure property 'start' of 'searchTable[search][page]' as it is undefined.
