@@ -46,7 +46,7 @@ const getImage = async (req, res) => {
     }
 
     const imagePath = path.join(__dirname, "../Assets/Images");
-    let image;
+    let image = "";
     try {
         for (const [_, value] of Object.entries(mimeTypes)) {
             if (fs.existsSync(`${imagePath}/${id}${value}`)) {
@@ -56,7 +56,9 @@ const getImage = async (req, res) => {
     } catch (err) {
         console.log(err);
     }
-
+    if (!image) {
+        return res.sendStatus(404);
+    }
     res.status(200).sendFile(image);
 };
 
