@@ -11,25 +11,20 @@ function client_cos() {
     return cos;
 }
 
-async function getBuckets() {
+async function addImage({ key, image }) {
     const cos = client_cos();
-    try {
-        // const buckets = JSON.parse(await cos.listBuckets().promise());
-        const b = await cos
-            .listObjects({ Bucket: "book-directory-images" })
-            .promise();
-        console.log(b);
-        // const buckets = await cos
-        //     .listObjects({ Bucket: "book-directory-images" })
-        //     .promise();
-        // if (buckets.Contents !== null) {
-        //     buckets.Contents.forEach((content) =>
-        //         console.log(`Bocket Name: ${content.Key} ${content.Size}`)
-        //     );
-        // }
-    } catch (err) {
-        console.log(err);
-    }
+    cos.putObject({
+        Bucket: "book-directory-images",
+        Key: key,
+        Body: image,
+    })
+        .promise()
+        .then(() => {
+            return true;
+        })
+        .catch(() => {
+            return false;
+        });
 }
 
 async function getBucketImage(id) {
@@ -47,4 +42,17 @@ async function getBucketImage(id) {
     }
 }
 
-module.exports = { getBucketImage };
+async function deleteImage(id) {
+    const cos = client_cos();
+
+    cos.deleteObject({ Bucket: "book-directory-images", Key: id })
+        .promise()
+        .then(() => {
+            return true;
+        })
+        .catch(() => {
+            return false;
+        });
+}
+
+module.exports = { getBucketImage, addImage, deleteImage };
