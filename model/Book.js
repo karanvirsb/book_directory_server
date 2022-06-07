@@ -2,10 +2,12 @@ const mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate-v2");
 
 const imageSchema = mongoose.Schema({
-    function: {
-        arguments: String,
-        body: String,
-    },
+    // function: {
+    //     arguments: String,
+    //     body: String,
+    // },
+    url: String,
+    type: String,
 });
 
 const bookSchema = new mongoose.Schema({

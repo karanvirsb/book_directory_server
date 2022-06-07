@@ -4,29 +4,30 @@ const path = require("path");
 const shortid = require("shortid");
 const formidable = require("formidable");
 const DBController = require("./databaseController");
+const { getBucketImage } = require("./bucketController");
 
-const data = {
-    books: require("../model/books.json"),
-    setBooks: function (data) {
-        this.books = data;
-    },
-};
+// const data = {
+//     books: require("../model/books.json"),
+//     setBooks: function (data) {
+//         this.books = data;
+//     },
+// };
 
-const bookPages = {
-    page: makePages(data.books, 10),
-    setPage: function (data) {
-        this.page = data;
-    },
-};
+// const bookPages = {
+//     page: makePages(data.books, 10),
+//     setPage: function (data) {
+//         this.page = data;
+//     },
+// };
 
-const hasMore = {
-    value: true,
-    setHasMore: function (data) {
-        this.value = data;
-    },
-};
+// const hasMore = {
+//     value: true,
+//     setHasMore: function (data) {
+//         this.value = data;
+//     },
+// };
 
-const searchTable = {};
+// const searchTable = {};
 
 const mimeTypes = {
     "image/jpeg": ".jpg",
@@ -39,27 +40,29 @@ const mimeTypes = {
 const getImage = async (req, res) => {
     const { id } = req.params;
     const index = await DBController.getBookById(id);
-    // const index = data.books.find((book) => book.id === id);
+    // // const index = data.books.find((book) => book.id === id);
 
     if (!index) {
         return res.status(400).send(`Id: ${id} does not exist`);
     }
 
-    const imagePath = path.join(__dirname, "../Assets/Images");
-    let image = "";
-    try {
-        for (const [_, value] of Object.entries(mimeTypes)) {
-            if (fs.existsSync(`${imagePath}/${id}${value}`)) {
-                image = `${imagePath}/${id}${value}`;
-            }
-        }
-    } catch (err) {
-        console.log(err);
-    }
+    const image = await getBucketImage(`${id}.jpg`);
+
+    // const imagePath = path.join(__dirname, "../Assets/Images");
+    // let image = "";
+    // try {
+    //     for (const [_, value] of Object.entries(mimeTypes)) {
+    //         if (fs.existsSync(`${imagePath}/${id}${value}`)) {
+    //             image = `${imagePath}/${id}${value}`;
+    //         }
+    //     }
+    // } catch (err) {
+    //     console.log(err);
+    // }
     if (!image) {
         return res.sendStatus(404);
     }
-    res.status(200).sendFile(image);
+    image.pipe(res);
 };
 
 const getBookById = async (req, res) => {
@@ -75,10 +78,13 @@ const getBookById = async (req, res) => {
 
     return res.status(200).json({
         ...foundBook._doc,
-        image: new Function(
-            foundBook._doc.image.function.arguments,
-            foundBook._doc.image.function.body
-        )(id, process.env.BASE_URL),
+        // image: {
+        //     function: new Function(
+        //         foundBook._doc.image.function.arguments,
+        //         foundBook._doc.image.function.body
+        //     )(id, process.env.BASE_URL),
+        //     type: foundBook.image.type,
+        // },
     });
 };
 
@@ -98,10 +104,11 @@ const getBooks = async (req, res) => {
                 bid: book.bid,
                 title: book.title,
                 author: book.author,
-                image: new Function(
-                    book.image.function.arguments,
-                    book.image.function.body
-                )(book.bid, process.env.BASE_URL),
+                // image: new Function(
+                //     book.image.function.arguments,
+                //     book.image.function.body
+                // )(book.bid, process.env.BASE_URL),
+                image: book.image,
             };
         });
 
@@ -157,10 +164,11 @@ const getBooks = async (req, res) => {
                 bid: book.bid,
                 title: book.title,
                 author: book.author,
-                image: new Function(
-                    book.image.function.arguments,
-                    book.image.function.body
-                )(book.bid, process.env.BASE_URL),
+                // image: new Function(
+                //     book.image.function.arguments,
+                //     book.image.function.body
+                // )(book.bid, process.env.BASE_URL),
+                image: book.image,
             };
         });
 
@@ -232,17 +240,23 @@ const addBook = async (req, res) => {
             language,
             pages,
             category,
+            image_type,
         } = fields;
 
         let newBook = {
             bid: id,
             title: title,
             image: {
-                function: {
-                    arguments: "id, url",
-                    body: "return url + id;",
-                },
+                url: process.env.BASE_URL + id,
+                type: image_type,
             },
+            // image: {
+            //     function: {
+            //         arguments: "id, url, type",
+            //         body: "return `url + id;",
+            //     },
+            //     type: image_type,
+            // },
             description: description,
             author: [author],
             publisher: publisher,
@@ -356,16 +370,21 @@ const updateBook = (req, res) => {
             language,
             pages,
             category,
+            image_type,
         } = fields;
 
         const updatedBook = {
             bid: bid,
             title: title,
+            // image: {
+            //     function: {
+            //         arguments: "id, url",
+            //         body: "return url + id;",
+            //     },
+            // },
             image: {
-                function: {
-                    arguments: "id, url",
-                    body: "return url + id;",
-                },
+                url: process.env.BASE_URL + id,
+                type: image_type,
             },
             description: description,
             author: [author],
