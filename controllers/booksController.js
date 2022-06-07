@@ -291,7 +291,7 @@ const addBook = async (req, res) => {
         // this is the old file
         const rawData = await fsPromises.readFile(oldPath);
         const addedImage = await addImage({
-            key: newBook.id + mimeTypes[files.image.mimetype],
+            key: newBook.bid + mimeTypes[files.image.mimetype],
             image: rawData,
         });
         // // writing the new file
@@ -327,7 +327,7 @@ const deleteBook = async (req, res) => {
     if (!foundBook) {
         return res.sendStatus(404);
     }
-    const image = id + "." + foundBook.image.type;
+    const image = id + mimeTypes[foundBook.image.type];
     const imageDeleted = await deleteImage(image);
     const deleted = await DBController.deleteBook(id);
 
@@ -462,7 +462,7 @@ const updateBook = (req, res) => {
             // this is the old file
             const rawData = await fsPromises.readFile(oldPath);
             const addedImage = await addImage({
-                key: id + mimeTypes[files.image.mimetype],
+                key: bid + mimeTypes[files.image.mimetype],
                 image: rawData,
             });
 
