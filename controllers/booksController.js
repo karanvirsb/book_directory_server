@@ -41,7 +41,7 @@ const getImage = async (req, res) => {
     const { id } = req.params;
     const index = await DBController.getBookById(id);
     // // const index = data.books.find((book) => book.id === id);
-
+    console.log(id);
     if (!index) {
         return res.status(400).send(`Id: ${id} does not exist`);
     }
@@ -294,6 +294,7 @@ const addBook = async (req, res) => {
             key: newBook.bid + mimeTypes[files.image.mimetype],
             image: rawData,
         });
+        console.log(addedImage, added);
         // // writing the new file
         // fsPromises.writeFile(newPath, rawData);
         // // removing the temp file
