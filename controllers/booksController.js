@@ -4,12 +4,7 @@ const path = require("path");
 const shortid = require("shortid");
 const formidable = require("formidable");
 const DBController = require("./databaseController");
-const {
-    getBucketImage,
-    addImage,
-    deleteImage,
-    addImage,
-} = require("./bucketController");
+const { getBucketImage, addImage, deleteImage } = require("./bucketController");
 
 // const data = {
 //     books: require("../model/books.json"),
