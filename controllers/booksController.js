@@ -41,10 +41,10 @@ const getImage = async (req, res) => {
     const { id } = req.params;
     const index = await DBController.getBookById(id);
     // // const index = data.books.find((book) => book.id === id);
-    console.log(id);
     if (!index) {
         return res.status(400).send(`Id: ${id} does not exist`);
     }
+    console.log(id, mimeTypes[index.image.type]);
 
     const image = await getBucketImage(`${id}${mimeTypes[index.image.type]}`);
 
