@@ -243,6 +243,7 @@ const addBook = async (req, res) => {
             image_type,
         } = fields;
         console.log(image_type);
+
         let newBook = {
             bid: id,
             title: title,
