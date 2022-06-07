@@ -22,7 +22,8 @@ async function addImage({ key, image }) {
         .then(() => {
             return true;
         })
-        .catch(() => {
+        .catch((err) => {
+            console.log(err);
             return false;
         });
 }
@@ -34,7 +35,6 @@ async function getBucketImage(id) {
         const image = cos
             .getObject({ Bucket: "book-directory-images", Key: id })
             .createReadStream();
-        console.log(image);
         return image;
     } catch (err) {
         console.log(err);
@@ -50,7 +50,8 @@ async function deleteImage(id) {
         .then(() => {
             return true;
         })
-        .catch(() => {
+        .catch((err) => {
+            console.log(err);
             return false;
         });
 }
