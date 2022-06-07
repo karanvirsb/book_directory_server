@@ -4,7 +4,12 @@ const path = require("path");
 const shortid = require("shortid");
 const formidable = require("formidable");
 const DBController = require("./databaseController");
-const { getBucketImage } = require("./bucketController");
+const {
+    getBucketImage,
+    addImage,
+    deleteImage,
+    addImage,
+} = require("./bucketController");
 
 // const data = {
 //     books: require("../model/books.json"),
@@ -46,7 +51,7 @@ const getImage = async (req, res) => {
         return res.status(400).send(`Id: ${id} does not exist`);
     }
 
-    const image = await getBucketImage(`${id}.jpg`);
+    const image = await getBucketImage(`${id}${mimeTypes[index.image.type]}`);
 
     // const imagePath = path.join(__dirname, "../Assets/Images");
     // let image = "";
@@ -280,22 +285,25 @@ const addBook = async (req, res) => {
         // getting the current path of the image
         const oldPath = files.image.filepath;
 
-        // creating a new path
-        const newPath = path.join(
-            __dirname +
-                "/../Assets/Images/" +
-                newBook.bid +
-                mimeTypes[files.image.mimetype]
-        );
+        // // creating a new path
+        // const newPath = path.join(
+        //     __dirname +
+        //         "/../Assets/Images/" +
+        //         newBook.bid +
+        //         mimeTypes[files.image.mimetype]
+        // );
 
         // this is the old file
         const rawData = await fsPromises.readFile(oldPath);
-
-        // writing the new file
-        fsPromises.writeFile(newPath, rawData);
-        // removing the temp file
-        fsPromises.rm(oldPath);
-        if (added) {
+        const addedImage = await addImage({
+            key: newBook.id + mimeTypes[files.image.mimetype],
+            image: rawData,
+        });
+        // // writing the new file
+        // fsPromises.writeFile(newPath, rawData);
+        // // removing the temp file
+        // fsPromises.rm(oldPath);
+        if (added && addedImage) {
             res.status(200).json({
                 message: `${newBook.title} has been added`,
             });
@@ -308,20 +316,27 @@ const addBook = async (req, res) => {
 // deleting a book
 const deleteBook = async (req, res) => {
     const { id } = req.params;
-    const imagePath = path.join(__dirname, "../Assets/Images");
-    let image;
-    try {
-        for (const [_, value] of Object.entries(mimeTypes)) {
-            if (fs.existsSync(`${imagePath}/${id}${value}`)) {
-                image = `${imagePath}/${id}${value}`;
-            }
-        }
-    } catch (err) {
-        console.log(err);
+    // const imagePath = path.join(__dirname, "../Assets/Images");
+    // let image;
+    // try {
+    //     for (const [_, value] of Object.entries(mimeTypes)) {
+    //         if (fs.existsSync(`${imagePath}/${id}${value}`)) {
+    //             image = `${imagePath}/${id}${value}`;
+    //         }
+    //     }
+    // } catch (err) {
+    //     console.log(err);
+    // }
+    // const imageRemoved = await fsPromises.rm(image);
+    const foundBook = await DBController.getBookById(id);
+    if (!foundBook) {
+        return res.sendStatus(404);
     }
-    const imageRemoved = await fsPromises.rm(image);
+    const image = id + "." + foundBook.image.type;
+    const imageDeleted = await deleteImage(image);
     const deleted = await DBController.deleteBook(id);
-    if (deleted && imageRemoved === undefined) {
+
+    if (deleted && imageDeleted === undefined) {
         return res.status(200).json({ message: `Book has been deleted` });
     } else {
         return res.status(500).json({ message: `Book could not be deleted` });
@@ -370,30 +385,44 @@ const updateBook = (req, res) => {
             language,
             pages,
             category,
-            image_type,
         } = fields;
-
-        const updatedBook = {
-            bid: bid,
-            title: title,
-            // image: {
-            //     function: {
-            //         arguments: "id, url",
-            //         body: "return url + id;",
-            //     },
-            // },
-            image: {
-                url: process.env.BASE_URL + id,
-                type: image_type,
-            },
-            description: description,
-            author: [author],
-            publisher: publisher,
-            date_info: date_info,
-            language: language,
-            pages: pages,
-            category: category,
-        };
+        const image_type = fields?.image || null;
+        let updatedBook;
+        if (image_type !== null) {
+            updatedBook = {
+                bid: bid,
+                title: title,
+                // image: {
+                //     function: {
+                //         arguments: "id, url",
+                //         body: "return url + id;",
+                //     },
+                // },
+                image: {
+                    url: process.env.BASE_URL + id,
+                    type: image_type,
+                },
+                description: description,
+                author: [author],
+                publisher: publisher,
+                date_info: date_info,
+                language: language,
+                pages: pages,
+                category: category,
+            };
+        } else {
+            updatedBook = {
+                bid: bid,
+                title: title,
+                description: description,
+                author: [author],
+                publisher: publisher,
+                date_info: date_info,
+                language: language,
+                pages: pages,
+                category: category,
+            };
+        }
 
         const updated = await DBController.updateBook(bid, updatedBook);
         // let newBooks = data.books;
@@ -412,36 +441,40 @@ const updateBook = (req, res) => {
             // getting the current path of the image
             const oldPath = files.image.filepath;
 
-            // remove the old book
-            const imagePath = path.join(__dirname, "../Assets/Images");
-            let image;
-            try {
-                for (const [_, value] of Object.entries(mimeTypes)) {
-                    if (
-                        fs.existsSync(`${imagePath}/${updatedBook.bid}${value}`)
-                    ) {
-                        image = `${imagePath}/${updatedBook.bid}${value}`;
-                    }
-                }
-            } catch (err) {
-                console.log(err);
-            }
-            const imageRemoved = await fsPromises.rm(image);
-            // creating a new path
-            const newPath = path.join(
-                __dirname +
-                    "/../Assets/Images/" +
-                    updatedBook.bid +
-                    mimeTypes[files.image.mimetype]
-            );
+            // // remove the old book
+            // const imagePath = path.join(__dirname, "../Assets/Images");
+            // let image;
+            // try {
+            //     for (const [_, value] of Object.entries(mimeTypes)) {
+            //         if (
+            //             fs.existsSync(`${imagePath}/${updatedBook.bid}${value}`)
+            //         ) {
+            //             image = `${imagePath}/${updatedBook.bid}${value}`;
+            //         }
+            //     }
+            // } catch (err) {
+            //     console.log(err);
+            // }
+            // const imageRemoved = await fsPromises.rm(image);
+            // // creating a new path
+            // const newPath = path.join(
+            //     __dirname +
+            //         "/../Assets/Images/" +
+            //         updatedBook.bid +
+            //         mimeTypes[files.image.mimetype]
+            // );
 
             // this is the old file
             const rawData = await fsPromises.readFile(oldPath);
+            const addedImage = await addImage({
+                key: id + mimeTypes[files.image.mimetype],
+                image: rawData,
+            });
 
             // writing the new file
-            fsPromises.writeFile(newPath, rawData);
-            // removing the temp file
-            fsPromises.rm(oldPath);
+            // fsPromises.writeFile(newPath, rawData);
+            // // removing the temp file
+            // fsPromises.rm(oldPath);
         }
         if (updated) {
             return res.status(200).json({ message: `Book has been updated` });
