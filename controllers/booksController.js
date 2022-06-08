@@ -276,7 +276,7 @@ const updateBook = (req, res) => {
                 //     },
                 // },
                 image: {
-                    url: process.env.BASE_URL + id,
+                    url: process.env.BASE_URL + bid,
                     type: image_type,
                 },
                 description: description,
