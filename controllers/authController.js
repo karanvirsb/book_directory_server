@@ -1,17 +1,7 @@
 // this is for jwt
 const jwt = require("jsonwebtoken");
-// const fsPromises = require("fs").promises;
-// const path = require("path");
 const bcrypt = require("bcrypt");
-// const ck = require("ckey");
 const DBController = require("./databaseController");
-
-// const usersDB = {
-//     users: require("../model/users.json"),
-//     setUsers: function (data) {
-//         this.users = data;
-//     },
-// };
 
 const handleLogin = async (req, res) => {
     const { user, password } = req.body;
@@ -21,7 +11,7 @@ const handleLogin = async (req, res) => {
             .json({ message: "Username and password are required" });
     }
     const foundUser = await DBController.getUser(user);
-    // const foundUser = usersDB.users.find((person) => person.username === user);
+
     if (!foundUser) {
         console.log("not found");
         return res.sendStatus(401); // this means unauthorized
@@ -54,16 +44,6 @@ const handleLogin = async (req, res) => {
         DBController.updateUser(foundUser.username, [
             { refreshToken: refreshToken },
         ]);
-        // const otherUsers = usersDB.users.filter(
-        //     (person) => person.username !== foundUser.username
-        // );
-        // const currentUser = { ...foundUser, refreshToken };
-
-        // usersDB.setUsers([...otherUsers, currentUser]);
-        // await fsPromises.writeFile(
-        //     path.join(__dirname, "..", "model", "users.json"),
-        //     JSON.stringify(usersDB.users)
-        // );
     } else {
         return res.sendStatus(401);
     }

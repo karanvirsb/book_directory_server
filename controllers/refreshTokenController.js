@@ -8,23 +8,17 @@
 // this is for jwt
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const ck = require("ckey");
 const DBController = require("./databaseController");
 
 const handleRefreshToken = async (req, res) => {
     const cookies = req.cookies;
     if (!cookies?.jwt) {
-        console.log("not cookie");
         return res.sendStatus(401);
     }
 
     const refreshToken = cookies.jwt;
 
     const foundUser = await DBController.getUserByRefreshToken(refreshToken);
-
-    // const foundUser = usersDB.users.find(
-    //     (person) => person.refreshToken === refreshToken
-    // );
 
     if (!foundUser) {
         return res.sendStatus(403); // Forbidden

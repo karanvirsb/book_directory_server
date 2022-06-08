@@ -1,12 +1,3 @@
-// const usersDB = {
-//     users: require("../model/users.json"),
-//     setUsers: function (data) {
-//         this.users = data;
-//     },
-// };
-
-// const fsPromises = require("fs").promises;
-// const path = require("path");
 const bcrypt = require("bcrypt");
 const DBController = require("./databaseController");
 
@@ -36,12 +27,7 @@ const handleNewUser = async (req, res) => {
             password: hashedPassword,
         };
         const userAdded = DBController.createUser(newUser);
-        // usersDB.setUsers([...usersDB.users, newUser]);
-        // // updating the DB (json)
-        // await fsPromises.writeFile(
-        //     path.join(__dirname, "..", "model", "users.json"),
-        //     JSON.stringify(usersDB.users)
-        // );
+
         if (userAdded) {
             res.status(201).json({ success: `New user ${user} created!` });
         } else {

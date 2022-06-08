@@ -65,7 +65,6 @@ class DBController {
 
     static async addBook(book) {
         const addedBook = await Book.create(book);
-        console.log(addedBook);
         return addedBook ? true : false;
     }
 
