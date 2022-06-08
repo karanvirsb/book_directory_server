@@ -40,7 +40,7 @@ const mimeTypes = {
 const getImage = async (req, res) => {
     const { id } = req.params;
     const index = await DBController.getBookById(id);
-    // // const index = data.books.find((book) => book.id === id);
+
     if (!index) {
         return res.status(400).send(`Id: ${id} does not exist`);
     }
@@ -48,17 +48,6 @@ const getImage = async (req, res) => {
 
     const image = await getBucketImage(`${id}${mimeTypes[index.image.type]}`);
 
-    // const imagePath = path.join(__dirname, "../Assets/Images");
-    // let image = "";
-    // try {
-    //     for (const [_, value] of Object.entries(mimeTypes)) {
-    //         if (fs.existsSync(`${imagePath}/${id}${value}`)) {
-    //             image = `${imagePath}/${id}${value}`;
-    //         }
-    //     }
-    // } catch (err) {
-    //     console.log(err);
-    // }
     if (!image) {
         return res.sendStatus(404);
     }
@@ -117,41 +106,6 @@ const getBooks = async (req, res) => {
             hasNext: books.hasNextPage,
             maxPage: books.totalPages,
         });
-        // const newBooksArr = data.books.filter((book) =>
-        //     book.title.includes(search)
-        // );
-
-        // const generalInfo = [];
-
-        // searchTable[search] = makePages(newBooksArr, 10);
-
-        // if (page === searchTable[search].length) {
-        //     hasMore.setHasMore(false);
-        // }
-
-        // let startBook,
-        //     endBook = 0;
-        // if (searchTable[search]) {
-        //     const { start, end } = searchTable[search][page];
-        //     startBook = start;
-        //     endBook = end;
-        // }
-        // let index = 0;
-        // for (let i = startBook; i <= endBook; i++) {
-        //     if (i === null) {
-        //         break;
-        //     }
-        //     generalInfo[index] = {
-        //         id: newBooksArr[i].id,
-        //         title: newBooksArr[i].title,
-        //         image: new Function(
-        //             newBooksArr[i].image.function.arguments,
-        //             newBooksArr[i].image.function.body
-        //         )(newBooksArr[i].id, process.env.BASE_URL),
-        //         author: newBooksArr[i].author,
-        //     };
-        //     index++;
-        // }
     } else {
         const books = await DBController.getAllBooks(page, 10);
 
@@ -177,36 +131,6 @@ const getBooks = async (req, res) => {
             hasNext: books.hasNextPage,
             maxPage: books.totalPages,
         });
-
-        // const { start, end } = bookPages.page[page];
-
-        // if (page === bookPages.page.length) {
-        //     hasMore.setHasMore(false);
-        // }
-
-        // const generalInfo = [];
-        // let index = 0;
-        // for (let i = start; i <= end; i++) {
-        //     if (i === null) {
-        //         break;
-        //     }
-        //     generalInfo[index] = {
-        //         id: data.books[i].id,
-        //         title: data.books[i].title,
-        //         image: new Function(
-        //             data.books[i].image.function.arguments,
-        //             data.books[i].image.function.body
-        //         )(data.books[i].id, process.env.BASE_URL),
-        //         author: data.books[i].author,
-        //     };
-        //     index++;
-        // }
-
-        // return res.status(200).json({
-        //     data: generalInfo,
-        //     hasNext: hasMore.value,
-        //     maxPage: bookPages.page.length,
-        // });
     }
 };
 
@@ -269,25 +193,9 @@ const addBook = async (req, res) => {
 
         const added = await DBController.addBook(newBook);
         console.log(added);
-        // data.setBooks([...data.books, newBook]);
-
-        // await fsPromises.writeFile(
-        //     path.join(__dirname, "..", "model", "books.json"),
-        //     JSON.stringify(data.books)
-        // );
-
-        // bookPages.setPage(makePages(data.books, 10));
 
         // getting the current path of the image
         const oldPath = files.image.filepath;
-
-        // // creating a new path
-        // const newPath = path.join(
-        //     __dirname +
-        //         "/../Assets/Images/" +
-        //         newBook.bid +
-        //         mimeTypes[files.image.mimetype]
-        // );
 
         // this is the old file
         const rawData = await fsPromises.readFile(oldPath);
@@ -296,10 +204,7 @@ const addBook = async (req, res) => {
             image: rawData,
         });
         console.log(addedImage, added);
-        // // writing the new file
-        // fsPromises.writeFile(newPath, rawData);
-        // // removing the temp file
-        // fsPromises.rm(oldPath);
+
         if (added && addedImage) {
             res.status(200).json({
                 message: `${newBook.title} has been added`,
@@ -313,18 +218,7 @@ const addBook = async (req, res) => {
 // deleting a book
 const deleteBook = async (req, res) => {
     const { id } = req.params;
-    // const imagePath = path.join(__dirname, "../Assets/Images");
-    // let image;
-    // try {
-    //     for (const [_, value] of Object.entries(mimeTypes)) {
-    //         if (fs.existsSync(`${imagePath}/${id}${value}`)) {
-    //             image = `${imagePath}/${id}${value}`;
-    //         }
-    //     }
-    // } catch (err) {
-    //     console.log(err);
-    // }
-    // const imageRemoved = await fsPromises.rm(image);
+
     const foundBook = await DBController.getBookById(id);
     if (!foundBook) {
         return res.sendStatus(404);
@@ -338,21 +232,6 @@ const deleteBook = async (req, res) => {
     } else {
         return res.status(500).json({ message: `Book could not be deleted` });
     }
-    // const book = data.books.find((book) => book.id === id);
-
-    // if (!book) {
-    //     return res.status(400).json({ message: `Book ID: ${id} not found` });
-    // }
-
-    // data.setBooks(data.books.filter((book) => book.id !== id));
-    // await fsPromises.writeFile(
-    //     path.join(__dirname, "..", "model", "books.json"),
-    //     JSON.stringify(data.books)
-    // );
-
-    // return res
-    //     .status(200)
-    //     .json({ message: `Book ${book.title} has been deleted` });
 };
 
 // updating the books
@@ -383,9 +262,10 @@ const updateBook = (req, res) => {
             pages,
             category,
         } = fields;
-        const image_type = fields?.image || null;
+        const prevBook = await DBController.getBookById(bid);
+        const image_type = fields?.image_type;
         let updatedBook;
-        if (image_type !== null) {
+        if (image_type) {
             updatedBook = {
                 bid: bid,
                 title: title,
@@ -422,58 +302,25 @@ const updateBook = (req, res) => {
         }
 
         const updated = await DBController.updateBook(bid, updatedBook);
-        // let newBooks = data.books;
-
-        // const oldBookIndex = newBooks.findIndex((book) => book.id === id);
-        // newBooks[oldBookIndex] = updatedBook;
-
-        // data.setBooks([...newBooks]);
-
-        // await fsPromises.writeFile(
-        //     path.join(__dirname, "..", "model", "books.json"),
-        //     JSON.stringify([...newBooks])
-        // );
-
+        let addedImage;
         if (files?.image) {
-            // getting the current path of the image
-            const oldPath = files.image.filepath;
-
-            // // remove the old book
-            // const imagePath = path.join(__dirname, "../Assets/Images");
-            // let image;
-            // try {
-            //     for (const [_, value] of Object.entries(mimeTypes)) {
-            //         if (
-            //             fs.existsSync(`${imagePath}/${updatedBook.bid}${value}`)
-            //         ) {
-            //             image = `${imagePath}/${updatedBook.bid}${value}`;
-            //         }
-            //     }
-            // } catch (err) {
-            //     console.log(err);
-            // }
-            // const imageRemoved = await fsPromises.rm(image);
-            // // creating a new path
-            // const newPath = path.join(
-            //     __dirname +
-            //         "/../Assets/Images/" +
-            //         updatedBook.bid +
-            //         mimeTypes[files.image.mimetype]
-            // );
-
-            // this is the old file
-            const rawData = await fsPromises.readFile(oldPath);
-            const addedImage = await addImage({
-                key: bid + mimeTypes[files.image.mimetype],
-                image: rawData,
+            await deleteImage(
+                prevBook.id + mimeTypes[prevBook.image.type]
+            ).then((res)=>{
+                if(res){
+                    // getting the current path of the image
+                    const oldPath = files.image.filepath;
+        
+                    // this is the old file
+                    const rawData = await fsPromises.readFile(oldPath);
+                    addedImage = await addImage({
+                        key: bid + mimeTypes[files.image.mimetype],
+                        image: rawData,
+                    });
+                }
             });
-
-            // writing the new file
-            // fsPromises.writeFile(newPath, rawData);
-            // // removing the temp file
-            // fsPromises.rm(oldPath);
         }
-        if (updated) {
+        if (updated && addedImage) {
             return res.status(200).json({ message: `Book has been updated` });
         } else {
             return res
@@ -483,25 +330,25 @@ const updateBook = (req, res) => {
     });
 };
 
-function makePages(arr, maxPageSize) {
-    const newArr = [];
-    if (arr.length < 10) {
-        return [{ start: 0, end: arr.length - 1 }];
-    }
+// function makePages(arr, maxPageSize) {
+//     const newArr = [];
+//     if (arr.length < 10) {
+//         return [{ start: 0, end: arr.length - 1 }];
+//     }
 
-    let count = 1;
-    for (let i = 0; i < arr.length; i++) {
-        if (count === maxPageSize) {
-            newArr.push({ start: i - (count - 1), end: i });
-            count = 1;
-        } else if (i + 1 === arr.length) {
-            newArr.push({ start: i - (count - 1), end: i });
-        } else {
-            count++;
-        }
-    }
-    return newArr;
-}
+//     let count = 1;
+//     for (let i = 0; i < arr.length; i++) {
+//         if (count === maxPageSize) {
+//             newArr.push({ start: i - (count - 1), end: i });
+//             count = 1;
+//         } else if (i + 1 === arr.length) {
+//             newArr.push({ start: i - (count - 1), end: i });
+//         } else {
+//             count++;
+//         }
+//     }
+//     return newArr;
+// }
 
 module.exports = {
     getBooks,
