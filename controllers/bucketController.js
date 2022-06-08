@@ -13,11 +13,12 @@ function client_cos() {
 
 async function addImage({ key, image }) {
     const cos = client_cos();
-    cos.putObject({
-        Bucket: "book-directory-images",
-        Key: key,
-        Body: image,
-    })
+    return cos
+        .putObject({
+            Bucket: "book-directory-images",
+            Key: key,
+            Body: image,
+        })
         .promise()
         .then(() => {
             return true;
@@ -45,7 +46,8 @@ async function getBucketImage(id) {
 async function deleteImage(id) {
     const cos = client_cos();
 
-    cos.deleteObject({ Bucket: "book-directory-images", Key: id })
+    return cos
+        .deleteObject({ Bucket: "book-directory-images", Key: id })
         .promise()
         .then(() => {
             return true;
