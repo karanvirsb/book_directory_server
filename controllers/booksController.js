@@ -227,7 +227,7 @@ const deleteBook = async (req, res) => {
     const imageDeleted = await deleteImage(image);
     const deleted = await DBController.deleteBook(id);
 
-    if (deleted && imageDeleted === undefined) {
+    if (deleted && imageDeleted) {
         return res.status(200).json({ message: `Book has been deleted` });
     } else {
         return res.status(500).json({ message: `Book could not be deleted` });
