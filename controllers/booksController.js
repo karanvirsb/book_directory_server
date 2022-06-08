@@ -67,13 +67,13 @@ const getBookById = async (req, res) => {
 
     return res.status(200).json({
         ...foundBook._doc,
-        // image: {
-        //     function: new Function(
-        //         foundBook._doc.image.function.arguments,
-        //         foundBook._doc.image.function.body
-        //     )(id, process.env.BASE_URL),
-        //     type: foundBook.image.type,
-        // },
+        image: {
+            url: new Function(
+                foundBook._doc.image.function.arguments,
+                foundBook._doc.image.function.body
+            )(id, process.env.BASE_URL),
+            type: foundBook.image.type,
+        },
     });
 };
 
@@ -93,11 +93,14 @@ const getBooks = async (req, res) => {
                 bid: book.bid,
                 title: book.title,
                 author: book.author,
-                // image: new Function(
-                //     book.image.function.arguments,
-                //     book.image.function.body
-                // )(book.bid, process.env.BASE_URL),
-                image: book.image,
+                image: {
+                    url: new Function(
+                        book.image.function?.arguments,
+                        book.image.function?.body
+                    )(book.bid, process.env.BASE_URL),
+                    type: book.image.type,
+                },
+                // image: book.image,
             };
         });
 
@@ -114,15 +117,19 @@ const getBooks = async (req, res) => {
         }
 
         const booksWithImageLink = books.docs.map((book) => {
+            console.log(book);
             return {
                 bid: book.bid,
                 title: book.title,
                 author: book.author,
-                // image: new Function(
-                //     book.image.function.arguments,
-                //     book.image.function.body
-                // )(book.bid, process.env.BASE_URL),
-                image: book.image,
+                image: {
+                    url: new Function(
+                        book.image.function?.arguments,
+                        book.image.function?.body
+                    )(book.bid, process.env.BASE_URL),
+                    type: book.image.type,
+                },
+                // image: book.image,
             };
         });
 
@@ -171,17 +178,17 @@ const addBook = async (req, res) => {
         let newBook = {
             bid: id,
             title: title,
-            image: {
-                url: process.env.BASE_URL + id,
-                type: image_type,
-            },
             // image: {
-            //     function: {
-            //         arguments: "id, url, type",
-            //         body: "return `url + id;",
-            //     },
+            //     url: process.env.BASE_URL + id,
             //     type: image_type,
             // },
+            image: {
+                function: {
+                    arguments: "id, url",
+                    body: "return url + id;",
+                },
+                type: image_type,
+            },
             description: description,
             author: [author],
             publisher: publisher,
@@ -269,16 +276,17 @@ const updateBook = (req, res) => {
             updatedBook = {
                 bid: bid,
                 title: title,
-                // image: {
-                //     function: {
-                //         arguments: "id, url",
-                //         body: "return url + id;",
-                //     },
-                // },
                 image: {
-                    url: process.env.BASE_URL + bid,
+                    function: {
+                        arguments: "id, url",
+                        body: "return url + id;",
+                    },
                     type: image_type,
                 },
+                // image: {
+                //     url: process.env.BASE_URL + bid,
+                //     type: image_type,
+                // },
                 description: description,
                 author: [author],
                 publisher: publisher,
@@ -302,7 +310,7 @@ const updateBook = (req, res) => {
         }
 
         const updated = await DBController.updateBook(bid, updatedBook);
-        let addedImage;
+        let addedImage = true;
         if (files?.image) {
             await deleteImage(
                 prevBook.id + mimeTypes[prevBook.image.type]
