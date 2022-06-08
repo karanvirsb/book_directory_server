@@ -306,11 +306,11 @@ const updateBook = (req, res) => {
         if (files?.image) {
             await deleteImage(
                 prevBook.id + mimeTypes[prevBook.image.type]
-            ).then((res)=>{
-                if(res){
+            ).then(async (res) => {
+                if (res) {
                     // getting the current path of the image
                     const oldPath = files.image.filepath;
-        
+
                     // this is the old file
                     const rawData = await fsPromises.readFile(oldPath);
                     addedImage = await addImage({
