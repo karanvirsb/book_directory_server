@@ -2,11 +2,10 @@ const mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate-v2");
 
 const imageSchema = mongoose.Schema({
-    // function: {
-    //     arguments: String,
-    //     body: String,
-    // },
-    url: String,
+    function: {
+        arguments: String,
+        body: String,
+    },
     type: String,
 });
 
