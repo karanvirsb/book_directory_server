@@ -49,6 +49,14 @@ app.all("*", (req, res) => {
     }
 });
 
+try {
+    if (!fs.existsSync("./Assets/Images/")) {
+        fs.mkdirSync("./Assets/Images/");
+    }
+} catch (err) {
+    console.log(err);
+}
+
 // handling error
 app.use(errorHandler);
 
@@ -71,12 +79,4 @@ mongoose.connection.once("open", () => {
         console.log("disconnect");
         DBController.endConnect();
     });
-
-    try {
-        if (!fs.existsSync("./Assets/Images/")) {
-            fs.mkdirSync("./Assets/Images/");
-        }
-    } catch (err) {
-        console.log(err);
-    }
 });
