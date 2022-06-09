@@ -1,4 +1,5 @@
 require("dotenv").config();
+const fs = require("fs");
 const express = require("express");
 const app = express();
 const DBController = require("./controllers/databaseController");
@@ -70,4 +71,12 @@ mongoose.connection.once("open", () => {
         console.log("disconnect");
         DBController.endConnect();
     });
+
+    try {
+        if (!fs.existsSync("./Assets/Images/")) {
+            fs.mkdirSync("./Assets/Images/");
+        }
+    } catch (err) {
+        console.log(err);
+    }
 });
