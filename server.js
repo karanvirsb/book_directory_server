@@ -51,8 +51,10 @@ app.all("*", (req, res) => {
 });
 
 try {
-    if (!fs.existsSync(path.join(__dirname + "/Assets/Images"))) {
-        fs.mkdirSync(path.join(__dirname + "/Assets/Images"));
+    if (!fs.existsSync("./Assets/Images")) {
+        fs.mkdirSync("./Assets/Images", {
+            recursive: true,
+        });
     }
 } catch (err) {
     console.log(err);
