@@ -44,7 +44,6 @@ const getImage = async (req, res) => {
     if (!index) {
         return res.status(400).send(`Id: ${id} does not exist`);
     }
-    console.log(id, mimeTypes[index.image.type]);
 
     const image = await getBucketImage(`${id}${mimeTypes[index.image.type]}`);
 
@@ -117,7 +116,6 @@ const getBooks = async (req, res) => {
         }
 
         const booksWithImageLink = books.docs.map((book) => {
-            console.log(book);
             return {
                 bid: book.bid,
                 title: book.title,
@@ -145,7 +143,6 @@ const getBooks = async (req, res) => {
 const addBook = async (req, res) => {
     let id = shortid.generate();
     let foundBook = await DBController.getBookById(id);
-    console.log(req);
     while (foundBook != null || foundBook != undefined || foundBook === []) {
         id = shortid.generate();
         foundBook = await DBController.getBookById(id);
@@ -156,7 +153,6 @@ const addBook = async (req, res) => {
         uploadDir: __dirname + "/../Assets/Images",
     });
     form.parse(req, async (err, fields, files) => {
-        console.log(fields);
         if (err) {
             res.status(400).json({ message: err });
             return;
@@ -173,7 +169,6 @@ const addBook = async (req, res) => {
             category,
             image_type,
         } = fields;
-        console.log(image_type);
 
         let newBook = {
             bid: id,
@@ -199,7 +194,6 @@ const addBook = async (req, res) => {
         };
 
         const added = await DBController.addBook(newBook);
-        console.log(added);
 
         // getting the current path of the image
         const oldPath = files.image.filepath;
@@ -210,7 +204,6 @@ const addBook = async (req, res) => {
             key: newBook.bid + mimeTypes[files.image.mimetype],
             image: rawData,
         });
-        console.log(addedImage, added);
 
         if (added && addedImage) {
             res.status(200).json({
