@@ -11,6 +11,7 @@ const credentials = require("./middleware/credentials");
 const cookieParser = require("cookie-parser");
 const verifyJWT = require("./middleware/verifyJWT");
 const mongoose = require("mongoose");
+const path = require("path");
 
 // const credential = { key: privateKey, cert: certificate };
 
@@ -50,8 +51,8 @@ app.all("*", (req, res) => {
 });
 
 try {
-    if (!fs.existsSync("./Assets/Images/")) {
-        fs.mkdirSync("./Assets/Images/");
+    if (!fs.existsSync(path.join(__dirname + "/Assets/Images"))) {
+        fs.mkdir(path.join(__dirname + "/Assets/Images"));
     }
 } catch (err) {
     console.log(err);
