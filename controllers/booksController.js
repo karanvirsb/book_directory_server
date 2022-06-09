@@ -147,6 +147,7 @@ const addBook = async (req, res) => {
         id = shortid.generate();
         foundBook = await DBController.getBookById(id);
     }
+
     // setting up the form
     const form = formidable({
         multiples: true,
@@ -194,7 +195,6 @@ const addBook = async (req, res) => {
         };
 
         const added = await DBController.addBook(newBook);
-
         // getting the current path of the image
         const oldPath = files.image.filepath;
 
@@ -206,6 +206,7 @@ const addBook = async (req, res) => {
         });
 
         if (added && addedImage) {
+            fsPromises.rm(oldPath);
             res.status(200).json({
                 message: `${newBook.title} has been added`,
             });
@@ -318,6 +319,7 @@ const updateBook = (req, res) => {
                         key: bid + mimeTypes[files.image.mimetype],
                         image: rawData,
                     });
+                    fsPromises.rm(oldPath);
                 }
             });
         }
