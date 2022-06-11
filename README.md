@@ -29,6 +29,10 @@ Start the server
   node server.js
 ```
 
+The server will start on default http://localhost:8000 
+
+Important  that you create an .env with BASE_UR=http://localhost:8000 for the requests to come to it
+
 ## Tech Stack
 **Client:** React, CSS
 **Server:** Express, Mongo DB, Node Js, IBM Cloud Object Storage
